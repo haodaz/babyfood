@@ -4,6 +4,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { FOOD_CATEGORIES, FoodItem } from '../constants/foods';
+import { supabase } from '../lib/supabase';
 
 type RecordData = {
   date: string;
@@ -55,22 +56,44 @@ export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [lang, setLang] = useState<Lang>('zh');
 
-  // Load from local storage
+  // 当弹窗打开时，禁止底部背景滚动
   useEffect(() => {
-    const saved = localStorage.getItem('food_records');
+    if (selectedFood) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [selectedFood]);
+
+  useEffect(() => {
     const savedLang = localStorage.getItem('app_lang') as Lang;
-    if (saved) setRecords(JSON.parse(saved));
     if (savedLang) setLang(savedLang);
-    setIsLoaded(true);
+
+    async function fetchRecords() {
+      const { data, error } = await supabase.from('food_records').select('*');
+      if (data && !error) {
+        const newRecords: Record<number, RecordData> = {};
+        data.forEach(row => {
+          newRecords[row.food_id] = {
+            date: row.date,
+            reaction: row.reaction || '',
+            allergy: row.allergy || false
+          };
+        });
+        setRecords(newRecords);
+      }
+      setIsLoaded(true);
+    }
+    fetchRecords();
   }, []);
 
   // Save to local storage
   useEffect(() => {
     if (isLoaded) {
-      localStorage.setItem('food_records', JSON.stringify(records));
       localStorage.setItem('app_lang', lang);
     }
-  }, [records, lang, isLoaded]);
+  }, [lang, isLoaded]);
 
   const t = i18n[lang];
 
@@ -104,16 +127,6 @@ export default function Home() {
   };
 
   const closeSheet = () => setSelectedFood(null);
-
-  // 当弹窗打开时，禁止底部背景滚动
-  useEffect(() => {
-    if (selectedFood) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => { document.body.style.overflow = ''; };
-  }, [selectedFood]);
 
   if (!isLoaded) return null;
 
@@ -341,12 +354,23 @@ export default function Home() {
               )}
             </div>
 
-            <button onClick={closeSheet} className="btn btn-primary" style={{ width: '100%', padding: '16px', fontSize: '18px', borderRadius: '16px' }}>{t.done}</button>
+            <button onClick={async () => {
+              const record = records[selectedFood.id];
+              await supabase.from('food_records').delete().eq('food_id', selectedFood.id);
+              await supabase.from('food_records').insert({
+                food_id: selectedFood.id,
+                date: record.date,
+                reaction: record.reaction,
+                allergy: record.allergy
+              });
+              closeSheet();
+            }} className="btn btn-primary" style={{ width: '100%', padding: '16px', fontSize: '18px', borderRadius: '16px' }}>{t.done}</button>
             <button 
-              onClick={() => {
+              onClick={async () => {
                 const newRecords = { ...records };
                 delete newRecords[selectedFood.id];
                 setRecords(newRecords);
+                await supabase.from('food_records').delete().eq('food_id', selectedFood.id);
                 closeSheet();
               }} 
               style={{ width: '100%', padding: '16px', marginTop: '8px', backgroundColor: 'transparent', border: 'none', color: '#9CA3AF', fontWeight: 600, fontSize: '15px' }}

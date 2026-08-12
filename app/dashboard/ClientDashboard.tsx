@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
 import { FOOD_CATEGORIES } from '../../constants/foods';
+import { supabase } from '../../lib/supabase';
 
 type RecordData = {
   date: string;
@@ -52,11 +53,25 @@ export default function Dashboard() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('food_records');
     const savedLang = localStorage.getItem('app_lang') as Lang;
-    if (saved) setRecords(JSON.parse(saved));
     if (savedLang) setLang(savedLang);
-    setIsLoaded(true);
+
+    async function fetchRecords() {
+      const { data, error } = await supabase.from('food_records').select('*');
+      if (data && !error) {
+        const newRecords: Record<number, RecordData> = {};
+        data.forEach(row => {
+          newRecords[row.food_id] = {
+            date: row.date,
+            reaction: row.reaction || '',
+            allergy: row.allergy || false
+          };
+        });
+        setRecords(newRecords);
+      }
+      setIsLoaded(true);
+    }
+    fetchRecords();
   }, []);
 
   if (!isLoaded) return null;

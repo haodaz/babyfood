@@ -1,5 +1,5 @@
 export interface FoodItem {
-  id: number;
+  id: number | string;
   name: string;
   enName: string;
   allergen?: string;
@@ -41,6 +41,10 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
       { id: 18, name: '橙子', enName: 'Orange' },
       { id: 19, name: '木瓜', enName: 'Papaya' },
       { id: 20, name: '桃子', enName: 'Peach' },
+      { id: 101, name: '苹果', enName: 'Apple' },
+      { id: 102, name: '梨', enName: 'Pear' },
+      { id: 103, name: '李子', enName: 'Plum' },
+      { id: 104, name: '草莓', enName: 'Strawberry' },
     ]
   },
   {
@@ -50,7 +54,6 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     color: '#DCFCE7',
     items: [
       { id: 21, name: '芦笋', enName: 'Asparagus' },
-      { id: 22, name: '牛油果', enName: 'Avocado' },
       { id: 23, name: '甜菜', enName: 'Beets' },
       { id: 24, name: '西兰花', enName: 'Broccoli' },
       { id: 25, name: '胡桃南瓜', enName: 'Butternut Squash' },
@@ -69,6 +72,9 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
       { id: 38, name: '甜椒', enName: 'Bell Pepper' },
       { id: 39, name: '玉米', enName: 'Corn' },
       { id: 40, name: '毛豆', enName: 'Edamame', allergen: '大豆', enAllergen: 'Soy' },
+      { id: 105, name: '白菜', enName: 'Cabbage' },
+      { id: 106, name: '青菜/油菜', enName: 'Bok Choy' },
+      { id: 107, name: '萝卜', enName: 'Radish' },
     ]
   },
   {
@@ -97,6 +103,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
       { id: 58, name: '全麦玉米饼', enName: 'Tortilla (Whole Wheat)', allergen: '小麦', enAllergen: 'Wheat' },
       { id: 59, name: '玉米烙饼', enName: 'Corn Tortilla' },
       { id: 60, name: '麦糊', enName: 'Cream of Wheat', allergen: '小麦', enAllergen: 'Wheat' },
+      { id: 108, name: '大米', enName: 'Rice' },
     ]
   },
   {
@@ -169,6 +176,8 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
       { id: 98, name: '牛至', enName: 'Oregano' },
       { id: 99, name: '大蒜(熟)', enName: 'Garlic (Cooked)' },
       { id: 100, name: '生姜', enName: 'Ginger' },
+      { id: 109, name: '香菜', enName: 'Cilantro' },
+      { id: 110, name: '葱', enName: 'Green Onion' },
     ]
   }
 ];

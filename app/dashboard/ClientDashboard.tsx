@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/set-state-in-effect */
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft } from 'lucide-react';
-import { FOOD_CATEGORIES } from '../../constants/foods';
+import { FOOD_CATEGORIES, FoodItem } from '../../constants/foods';
 import { supabase } from '../../lib/supabase';
 
 type RecordData = {
@@ -48,7 +48,8 @@ const i18n = {
 
 export default function Dashboard() {
   const router = useRouter();
-  const [records, setRecords] = useState<Record<number, RecordData>>({});
+  const [records, setRecords] = useState<Record<string, RecordData>>({});
+  const [customFoods, setCustomFoods] = useState<FoodItem[]>([]);
   const [lang, setLang] = useState<Lang>('zh');
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -56,11 +57,12 @@ export default function Dashboard() {
     const savedLang = localStorage.getItem('app_lang') as Lang;
     if (savedLang) setLang(savedLang);
 
-    async function fetchRecords() {
-      const { data, error } = await supabase.from('food_records').select('*');
-      if (data && !error) {
-        const newRecords: Record<number, RecordData> = {};
-        data.forEach(row => {
+    async function fetchData() {
+      // 获取打卡记录
+      const { data: recordsData, error: recordsError } = await supabase.from('food_records').select('*');
+      if (recordsData && !recordsError) {
+        const newRecords: Record<string, RecordData> = {};
+        recordsData.forEach(row => {
           newRecords[row.food_id] = {
             date: row.date,
             reaction: row.reaction || '',
@@ -69,10 +71,36 @@ export default function Dashboard() {
         });
         setRecords(newRecords);
       }
+      
+      // 获取自定义食物
+      const { data: customData, error: customError } = await supabase.from('custom_foods').select('*');
+      if (customData && !customError) {
+        const mapped: FoodItem[] = customData.map(row => ({
+          id: row.id,
+          name: row.name,
+          enName: row.en_name,
+          allergen: row.allergen,
+          enAllergen: row.en_allergen,
+          _categoryId: row.category_id
+        } as any));
+        setCustomFoods(mapped);
+      }
+      
       setIsLoaded(true);
     }
-    fetchRecords();
+    fetchData();
   }, []);
+
+  // 融合默认数据与自定义数据
+  const mergedCategories = useMemo(() => {
+    return FOOD_CATEGORIES.map(cat => {
+      const categoryCustoms = customFoods.filter((f: any) => f._categoryId === cat.id);
+      return {
+        ...cat,
+        items: [...cat.items, ...categoryCustoms]
+      };
+    });
+  }, [customFoods]);
 
   if (!isLoaded) return null;
 
@@ -148,10 +176,10 @@ export default function Dashboard() {
         <div style={{ backgroundColor: 'white', borderRadius: '20px', padding: '24px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', marginBottom: '40px' }}>
           <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '24px', color: '#374151' }}>{t.categoryProgress}</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-            {FOOD_CATEGORIES.map(cat => {
+            {mergedCategories.map(cat => {
               const catTotal = cat.items.length;
               const catTried = cat.items.filter(f => records[f.id]).length;
-              const percent = (catTried / catTotal) * 100;
+              const percent = catTotal === 0 ? 0 : (catTried / catTotal) * 100;
               
               return (
                 <div key={cat.id}>
@@ -163,7 +191,6 @@ export default function Dashboard() {
                     <span style={{ color: '#9CA3AF' }}>{catTried} / {catTotal}</span>
                   </div>
                   <div style={{ height: '8px', backgroundColor: '#F3F4F6', borderRadius: '4px', overflow: 'hidden' }}>
-                    {/* fallback color in case cat.color is too light (like #FEE2E2) -> use a slightly darker version for the bar fill, but since we use tailwind-like colors, we might just use primary or a derived color. Let's use primary color for the fill. */}
                     <div style={{ height: '100%', width: `${percent}%`, backgroundColor: 'var(--primary-color)', transition: 'width 0.6s ease-out' }} />
                   </div>
                 </div>

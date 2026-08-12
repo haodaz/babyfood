@@ -16,7 +16,8 @@ type Lang = 'zh' | 'en';
 
 const i18n = {
   zh: {
-    title: '宝宝的辅食初体验',
+    title: '百家饭',
+    subtitle: '吃了百家饭，一生无忧愁',
     progress: '解锁进度',
     allergenTag: '易敏',
     firstTried: '首次尝试',
@@ -40,7 +41,8 @@ const i18n = {
     cancelAdd: '取消'
   },
   en: {
-    title: "Baby's First Foods",
+    title: "Hundred Family Meals",
+    subtitle: "Eat a hundred family meals, live a life without worry",
     progress: 'Progress',
     allergenTag: 'Allergen',
     firstTried: 'First tried',
@@ -238,9 +240,12 @@ export default function Home() {
     <>
       <div style={{ padding: 'env(safe-area-inset-top) 16px 40px' }} className="animate-fade-in">
         <header style={{ padding: '16px 0 16px', position: 'sticky', top: 0, backgroundColor: 'var(--bg-color)', zIndex: 10 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h1 style={{ fontSize: '22px', fontWeight: 700, color: 'var(--primary-color)' }}>{t.title}</h1>
-            <div style={{ display: 'flex', gap: '8px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--primary-color)', marginBottom: '4px' }}>{t.title}</h1>
+              <p style={{ fontSize: '12px', color: '#6B7280', fontWeight: 500, letterSpacing: '0.5px' }}>{t.subtitle}</p>
+            </div>
+            <div style={{ display: 'flex', gap: '8px', paddingTop: '4px' }}>
               <button onClick={() => router.push('/dashboard')} style={{ padding: '6px 12px', borderRadius: '16px', border: '1px solid var(--border-color)', backgroundColor: 'white', fontSize: '13px', fontWeight: 600, cursor: 'pointer', color: 'var(--text-main)' }}>{t.dashboard}</button>
               <button onClick={() => setLang(lang === 'zh' ? 'en' : 'zh')} style={{ padding: '6px 12px', borderRadius: '16px', border: '1px solid var(--border-color)', backgroundColor: 'white', fontSize: '13px', fontWeight: 600, cursor: 'pointer', color: 'var(--text-main)' }}>{t.toggleLang}</button>
             </div>

@@ -127,46 +127,46 @@ export default function Dashboard() {
         <button onClick={() => router.back()} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '40px', height: '40px', borderRadius: '20px', backgroundColor: 'white', border: '1px solid var(--border-color)', cursor: 'pointer', marginRight: '16px' }}>
           <ChevronLeft size={24} color="var(--text-main)" />
         </button>
-        <h1 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-main)' }}>{t.title}</h1>
+        <h1 style={{ fontSize: '20px', fontWeight: 700, color: 'var(--text-main)', fontFamily: 'var(--font-serif)' }}>{t.title}</h1>
       </header>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         
         {/* Allergy Stats */}
         <div style={{ backgroundColor: 'white', borderRadius: '20px', padding: '24px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '16px', color: '#374151' }}>{t.allergies}</h2>
+          <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '16px', color: '#374151', fontFamily: 'var(--font-serif)' }}>{t.allergies}</h2>
           <div style={{ display: 'flex', gap: '16px' }}>
             <div style={{ flex: 1, backgroundColor: '#F9FAFB', padding: '16px', borderRadius: '16px', textAlign: 'center' }}>
-              <div style={{ fontSize: '28px', fontWeight: 800, color: '#10B981' }}>{triedCount - allergiesCount}</div>
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#48C0A3' }}>{triedCount - allergiesCount}</div>
               <div style={{ fontSize: '13px', color: '#6B7280', marginTop: '4px', fontWeight: 600 }}>{t.normal}</div>
             </div>
-            <div style={{ flex: 1, backgroundColor: '#FEE2E2', padding: '16px', borderRadius: '16px', textAlign: 'center' }}>
-              <div style={{ fontSize: '28px', fontWeight: 800, color: '#EF4444' }}>{allergiesCount}</div>
-              <div style={{ fontSize: '13px', color: '#EF4444', marginTop: '4px', fontWeight: 600 }}>{t.allergy}</div>
+            <div style={{ flex: 1, backgroundColor: '#FDF2F4', padding: '16px', borderRadius: '16px', textAlign: 'center' }}>
+              <div style={{ fontSize: '28px', fontWeight: 800, color: '#9D2933' }}>{allergiesCount}</div>
+              <div style={{ fontSize: '13px', color: '#9D2933', marginTop: '4px', fontWeight: 600 }}>{t.allergy}</div>
             </div>
           </div>
         </div>
 
         {/* Reaction Stats */}
         <div style={{ backgroundColor: 'white', borderRadius: '20px', padding: '24px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '24px', color: '#374151' }}>{t.reactions}</h2>
+          <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '24px', color: '#374151', fontFamily: 'var(--font-serif)' }}>{t.reactions}</h2>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', height: '140px', gap: '16px', paddingBottom: '8px' }}>
             {/* Love */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', height: '100%', justifyContent: 'flex-end' }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#F59E0B' }}>{reactions.love}</div>
-              <div style={{ width: '100%', backgroundColor: '#FEF3C7', borderRadius: '8px 8px 0 0', height: `${Math.max(5, (reactions.love / (triedCount || 1)) * 100)}%`, transition: 'height 0.5s ease-out' }} />
+              <div style={{ fontSize: '14px', fontWeight: 700, color: 'var(--primary-color)' }}>{reactions.love}</div>
+              <div style={{ width: '100%', backgroundColor: 'var(--primary-light)', borderRadius: '8px 8px 0 0', height: `${Math.max(5, (reactions.love / (triedCount || 1)) * 100)}%`, transition: 'height 0.5s ease-out' }} />
               <div style={{ fontSize: '14px', color: '#6B7280', marginTop: '4px' }}>😍</div>
             </div>
             {/* Neutral */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', height: '100%', justifyContent: 'flex-end' }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#6B7280' }}>{reactions.neutral}</div>
-              <div style={{ width: '100%', backgroundColor: '#F3F4F6', borderRadius: '8px 8px 0 0', height: `${Math.max(5, (reactions.neutral / (triedCount || 1)) * 100)}%`, transition: 'height 0.5s ease-out' }} />
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#8C8D96' }}>{reactions.neutral}</div>
+              <div style={{ width: '100%', backgroundColor: '#E2DFD5', borderRadius: '8px 8px 0 0', height: `${Math.max(5, (reactions.neutral / (triedCount || 1)) * 100)}%`, transition: 'height 0.5s ease-out' }} />
               <div style={{ fontSize: '14px', color: '#6B7280', marginTop: '4px' }}>😐</div>
             </div>
             {/* Hate */}
             <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', height: '100%', justifyContent: 'flex-end' }}>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#EF4444' }}>{reactions.hate}</div>
-              <div style={{ width: '100%', backgroundColor: '#FEE2E2', borderRadius: '8px 8px 0 0', height: `${Math.max(5, (reactions.hate / (triedCount || 1)) * 100)}%`, transition: 'height 0.5s ease-out' }} />
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#9D2933' }}>{reactions.hate}</div>
+              <div style={{ width: '100%', backgroundColor: '#FDF2F4', borderRadius: '8px 8px 0 0', height: `${Math.max(5, (reactions.hate / (triedCount || 1)) * 100)}%`, transition: 'height 0.5s ease-out' }} />
               <div style={{ fontSize: '14px', color: '#6B7280', marginTop: '4px' }}>😖</div>
             </div>
           </div>
@@ -174,7 +174,7 @@ export default function Dashboard() {
 
         {/* Category Progress */}
         <div style={{ backgroundColor: 'white', borderRadius: '20px', padding: '24px', boxShadow: '0 4px 12px rgba(0,0,0,0.03)', marginBottom: '40px' }}>
-          <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '24px', color: '#374151' }}>{t.categoryProgress}</h2>
+          <h2 style={{ fontSize: '16px', fontWeight: 700, marginBottom: '24px', color: '#374151', fontFamily: 'var(--font-serif)' }}>{t.categoryProgress}</h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {mergedCategories.map(cat => {
               const catTotal = cat.items.length;

@@ -19,7 +19,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     id: 'fruits',
     titleZh: '水果类',
     titleEn: 'Fruits',
-    color: '#FEE2E2',
+    color: '#F9EAE1',
     items: [
       { id: 1, name: '牛油果', enName: 'Avocado' },
       { id: 2, name: '香蕉', enName: 'Banana' },
@@ -51,7 +51,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     id: 'vegetables',
     titleZh: '蔬菜类',
     titleEn: 'Vegetables',
-    color: '#DCFCE7',
+    color: '#E3EFE8',
     items: [
       { id: 21, name: '芦笋', enName: 'Asparagus' },
       { id: 23, name: '甜菜', enName: 'Beets' },
@@ -81,7 +81,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     id: 'grains',
     titleZh: '谷物与淀粉',
     titleEn: 'Grains & Starches',
-    color: '#FEF9C3',
+    color: '#F3EFE0',
     items: [
       { id: 41, name: '燕麦片', enName: 'Oatmeal' },
       { id: 42, name: '糙米', enName: 'Brown Rice' },
@@ -110,7 +110,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     id: 'proteins',
     titleZh: '蛋白质',
     titleEn: 'Proteins',
-    color: '#E0E7FF',
+    color: '#E3EDF5',
     items: [
       { id: 61, name: '鸡肉', enName: 'Chicken' },
       { id: 62, name: '火鸡', enName: 'Turkey' },
@@ -133,7 +133,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     id: 'dairy',
     titleZh: '乳制品与替代',
     titleEn: 'Dairy & Alternatives',
-    color: '#DBEAFE',
+    color: '#E8F0F4',
     items: [
       { id: 76, name: '全脂原味酸奶', enName: 'Yogurt (Plain, Whole Milk)', allergen: '乳制品', enAllergen: 'Dairy' },
       { id: 77, name: '茅屋奶酪', enName: 'Cottage Cheese', allergen: '乳制品', enAllergen: 'Dairy' },
@@ -151,7 +151,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     id: 'fats',
     titleZh: '健康油脂',
     titleEn: 'Healthy Fats & Oils',
-    color: '#E0F2FE',
+    color: '#E5ECE7',
     items: [
       { id: 86, name: '橄榄油', enName: 'Olive Oil' },
       { id: 87, name: '牛油果油', enName: 'Avocado Oil' },
@@ -169,7 +169,7 @@ export const FOOD_CATEGORIES: FoodCategory[] = [
     id: 'flavors',
     titleZh: '香草与香料',
     titleEn: 'Herbs, Spices & Flavors',
-    color: '#FCE7F3',
+    color: '#F0E5E1',
     items: [
       { id: 96, name: '肉桂', enName: 'Cinnamon' },
       { id: 97, name: '罗勒', enName: 'Basil' },

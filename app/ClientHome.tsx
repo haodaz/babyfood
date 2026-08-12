@@ -242,7 +242,7 @@ export default function Home() {
         <header style={{ padding: '16px 0 16px', position: 'sticky', top: 0, backgroundColor: 'var(--bg-color)', zIndex: 10 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
             <div>
-              <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--primary-color)', marginBottom: '4px' }}>{t.title}</h1>
+              <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--primary-color)', marginBottom: '4px', fontFamily: 'var(--font-serif)' }}>{t.title}</h1>
               <p style={{ fontSize: '12px', color: '#6B7280', fontWeight: 500, letterSpacing: '0.5px' }}>{t.subtitle}</p>
             </div>
             <div style={{ display: 'flex', gap: '8px', paddingTop: '4px' }}>
@@ -293,7 +293,7 @@ export default function Home() {
             <div key={cat.id} id={cat.id}>
               <div style={{ display: 'flex', alignItems: 'center', marginBottom: '16px' }}>
                 <div style={{ width: '12px', height: '12px', borderRadius: '6px', backgroundColor: cat.color, marginRight: '10px', boxShadow: `0 0 0 2px white, 0 0 0 4px ${cat.color}` }} />
-                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#374151' }}>
+                <h2 style={{ fontSize: '18px', fontWeight: 700, color: '#374151', fontFamily: 'var(--font-serif)' }}>
                   {lang === 'zh' ? cat.titleZh : cat.titleEn}
                 </h2>
               </div>
@@ -310,7 +310,7 @@ export default function Home() {
                       onClick={() => handleToggleFood(food)}
                       style={{ display: 'flex', alignItems: 'center', padding: '12px 14px', backgroundColor: isChecked ? cat.color : 'white', border: `1.5px solid ${isChecked ? cat.color : 'var(--border-color)'}`, borderRadius: '16px', cursor: 'pointer', transition: 'all 0.2s', boxShadow: isChecked ? 'none' : '0 2px 4px rgba(0,0,0,0.02)' }}
                     >
-                      <div style={{ width: '24px', height: '24px', borderRadius: '12px', border: `2px solid ${isChecked ? 'white' : '#D1D5DB'}`, backgroundColor: isChecked ? '#10B981' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '12px', flexShrink: 0 }}>
+                      <div style={{ width: '24px', height: '24px', borderRadius: '12px', border: `2px solid ${isChecked ? 'var(--primary-color)' : '#D1D5DB'}`, backgroundColor: isChecked ? 'var(--primary-color)' : 'transparent', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '12px', flexShrink: 0 }}>
                         {isChecked && <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M10 3L4.5 8.5L2 6" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>}
                       </div>
                       
@@ -350,7 +350,7 @@ export default function Home() {
           <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 40, backdropFilter: 'blur(2px)' }} onClick={closeSheet} />
           <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: 'white', borderTopLeftRadius: '28px', borderTopRightRadius: '28px', padding: '24px 24px max(32px, env(safe-area-inset-bottom))', zIndex: 50, boxShadow: '0 -10px 25px rgba(0,0,0,0.1)', animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}>
             <div style={{ width: '48px', height: '5px', backgroundColor: '#E5E7EB', borderRadius: '3px', margin: '0 auto 24px' }} />
-            <h3 style={{ fontSize: '24px', fontWeight: 800, textAlign: 'center', marginBottom: '4px', color: '#111827' }}>{lang === 'zh' ? selectedFood.name : selectedFood.enName}</h3>
+            <h3 style={{ fontSize: '24px', fontWeight: 800, textAlign: 'center', marginBottom: '4px', color: '#111827', fontFamily: 'var(--font-serif)' }}>{lang === 'zh' ? selectedFood.name : selectedFood.enName}</h3>
             <p style={{ textAlign: 'center', color: '#6B7280', fontSize: '14px', marginBottom: '24px' }}>
               {lang === 'zh' ? selectedFood.enName : selectedFood.name} · {t.firstTried}: <span style={{ fontWeight: 600, color: 'var(--primary-color)' }}>{records[selectedFood.id]?.date}</span>
             </p>
@@ -404,7 +404,7 @@ export default function Home() {
           <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 40, backdropFilter: 'blur(2px)' }} onClick={closeAddFood} />
           <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, backgroundColor: 'white', borderTopLeftRadius: '28px', borderTopRightRadius: '28px', padding: '24px 24px max(32px, env(safe-area-inset-bottom))', zIndex: 50, boxShadow: '0 -10px 25px rgba(0,0,0,0.1)', animation: 'slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1)' }}>
             <div style={{ width: '48px', height: '5px', backgroundColor: '#E5E7EB', borderRadius: '3px', margin: '0 auto 24px' }} />
-            <h3 style={{ fontSize: '20px', fontWeight: 700, textAlign: 'center', marginBottom: '24px', color: '#111827' }}>{t.addFoodTitle}</h3>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, textAlign: 'center', marginBottom: '24px', color: '#111827', fontFamily: 'var(--font-serif)' }}>{t.addFoodTitle}</h3>
             
             <div style={{ marginBottom: '16px' }}>
               <input type="text" placeholder={t.foodNameZh} value={newFoodZh} onChange={e => setNewFoodZh(e.target.value)} style={{ width: '100%', padding: '16px', borderRadius: '12px', border: '1px solid var(--border-color)', fontSize: '16px', outline: 'none' }} />

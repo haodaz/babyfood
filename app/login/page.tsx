@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const [password, setPassword] = useState('');
@@ -49,17 +50,37 @@ export default function LoginPage() {
         width: '100%', 
         maxWidth: '400px', 
         padding: '32px 24px', 
-        textAlign: 'center' 
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
       }}>
-        <div style={{ fontSize: '48px', marginBottom: '16px' }}>👶🏻</div>
-        <h1 style={{ fontSize: '24px', fontWeight: 700, color: 'var(--primary-color)', marginBottom: '8px' }}>
-          宝宝的 100 种辅食
+        <div style={{
+          width: '120px',
+          height: '120px',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          marginBottom: '20px',
+          border: '2px solid var(--border-color)',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+        }}>
+          <Image 
+            src="/images/hero.png" 
+            alt="百家饭" 
+            width={120} 
+            height={120}
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
+        
+        <h1 style={{ fontSize: '26px', fontWeight: 800, color: 'var(--primary-color)', marginBottom: '4px', fontFamily: 'var(--font-serif)' }}>
+          百家饭
         </h1>
-        <p style={{ color: 'var(--text-muted)', fontSize: '14px', marginBottom: '32px' }}>
-          请输入密码以访问记录 (默认测试密码: 123456)
+        <p style={{ color: 'var(--text-muted)', fontSize: '13px', marginBottom: '32px', fontFamily: 'var(--font-serif)', letterSpacing: '0.5px' }}>
+          吃了百家饭，一生无忧愁
         </p>
 
-        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
           <input
             type="password"
             value={password}
@@ -76,7 +97,7 @@ export default function LoginPage() {
             type="submit" 
             className="btn btn-primary" 
             disabled={isLoading}
-            style={{ width: '100%', padding: '14px', fontSize: '16px', marginTop: '8px' }}
+            style={{ width: '100%', padding: '14px', fontSize: '16px', marginTop: '8px', fontFamily: 'var(--font-serif)' }}
           >
             {isLoading ? '登录中...' : '进入记录表'}
           </button>

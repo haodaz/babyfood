@@ -2,23 +2,27 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('auth_token')
-  const isLoginPage = request.nextUrl.pathname === '/login'
+  try {
+    const hasToken = request.cookies.has('auth_token')
+    const url = request.nextUrl.clone()
 
-  // If not logged in and not on login page, redirect to login
-  if (!token && !isLoginPage) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    if (!hasToken && url.pathname !== '/login') {
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+
+    if (hasToken && url.pathname === '/login') {
+      url.pathname = '/'
+      return NextResponse.redirect(url)
+    }
+
+    return NextResponse.next()
+  } catch (error) {
+    // Prevent 500 error on Vercel if edge fails
+    return NextResponse.next()
   }
-
-  // If logged in and on login page, redirect to home
-  if (token && isLoginPage) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
-
-  return NextResponse.next()
 }
 
-// Only run middleware on the main routes to protect them
 export const config = {
   matcher: ['/', '/dashboard', '/login'],
 }
